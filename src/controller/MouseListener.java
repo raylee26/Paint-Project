@@ -62,12 +62,23 @@ public class MouseListener implements MouseInputListener {
 		int y = arg0.getY();
 		secondPoint = new PointCoordinate(x,y);
 		System.out.println(secondPoint);
-		
-		// Draws Shapes
-		CommandManager.drawShape(firstPoint, secondPoint, state, canvas);
-		// Moves Shapes
-		
-		// Selects Shapes
+		// Switch functions based on settings
+		switch(state.getActiveStartAndEndPointMode()) {
+		case SELECT:
+			// Selects Shapes
+			
+			break;
+		case DRAW:
+			// Draws Shapes
+			CommandManager.drawShape(firstPoint, secondPoint, state, canvas);
+			break;
+		case MOVE:
+			// Moves Shapes
+			CommandManager.moveShape(firstPoint, secondPoint, state, canvas);
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

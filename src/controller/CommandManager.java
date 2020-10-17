@@ -11,7 +11,8 @@ import view.interfaces.PaintCanvasBase;
 
 public class CommandManager {
 	
-	public static void drawShape(PointCoordinate firstPoint, PointCoordinate secondPoint, IApplicationState state, PaintCanvasBase canvas) {
+	public static void drawShape(PointCoordinate firstPoint, PointCoordinate secondPoint,
+			IApplicationState state, PaintCanvasBase canvas) {
 		
 		// Do Rectangle math
 		int width = Math.abs(secondPoint.getxCoor() - firstPoint.getxCoor());
@@ -34,8 +35,25 @@ public class CommandManager {
         System.out.println("Number of Shapes: " + state.getShapeList().size());
 	}
 	
-	public static void moveShape() {
-		
+	public static void moveShape(PointCoordinate firstPoint, PointCoordinate secondPoint,
+			IApplicationState state, PaintCanvasBase canvas) {
+		// Determine Direction and Distance of movement
+		int moveX = secondPoint.getxCoor() - firstPoint.getxCoor();
+		int moveY = secondPoint.getyCoor() - firstPoint.getyCoor();
+		// Apply movement to shape
+		for(Shape s: state.getShapeList()) {
+			s.moveShape(moveX, moveY);
+		}
+		// Draw New canvas
+			//wipes current canvas
+		canvas.paintImmediately(0, 0, canvas.getWidth(), canvas.getHeight());
+			//redraw canvas
+		for(Shape s: state.getShapeList()) {
+			// Draw rectangle on screen
+			Graphics2D graphics2d = canvas.getGraphics2D();
+			graphics2d.setColor(Color.GREEN);
+	        graphics2d.fillRect(s.getCoor().getxCoor(), s.getCoor().getyCoor(), s.getWidth(), s.getHeight());
+		}
 	}
 	
 	public static void selectShape() {
