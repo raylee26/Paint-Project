@@ -2,11 +2,11 @@ package model.interfaces;
 
 import java.util.ArrayList;
 
-import model.Shape;
 import model.ShapeColor;
 import model.ShapeShadingType;
 import model.ShapeType;
 import model.StartAndEndPointMode;
+import model.shapes.Shape;
 
 public interface IApplicationState {
     void setActiveShape();

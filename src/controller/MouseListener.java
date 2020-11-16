@@ -6,11 +6,11 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.event.MouseInputListener;
 
-import model.Ellipse;
 import model.PointCoordinate;
-import model.Rectangle;
-import model.Shape;
 import model.interfaces.IApplicationState;
+import model.shapes.Ellipse;
+import model.shapes.Rectangle;
+import model.shapes.Shape;
 import view.interfaces.PaintCanvasBase;
 import controller.CommandManager;
 
@@ -70,7 +70,7 @@ public class MouseListener implements MouseInputListener {
 			break;
 		case DRAW:
 			// Draws Shapes
-			CommandManager.drawShape(firstPoint, secondPoint, state, canvas);
+			CommandManager.makeShape(firstPoint, secondPoint, state, canvas);
 			break;
 		case MOVE:
 			// Moves Shapes

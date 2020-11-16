@@ -1,6 +1,5 @@
 package model.persistence;
 
-import model.Shape;
 import model.ShapeColor;
 import model.ShapeShadingType;
 import model.ShapeType;
@@ -8,6 +7,7 @@ import model.StartAndEndPointMode;
 import model.dialogs.DialogProvider;
 import model.interfaces.IApplicationState;
 import model.interfaces.IDialogProvider;
+import model.shapes.Shape;
 import view.interfaces.IUiModule;
 
 import java.io.Serializable;
