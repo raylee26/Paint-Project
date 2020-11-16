@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import model.PointCoordinate;
@@ -86,21 +87,43 @@ public class CommandManager {
 		Graphics2D graphics2d = canvas.getGraphics2D();
 		graphics2d.setColor(priColor);
 		
-		switch(shape.getType()) {
-		case ELLIPSE:
-	        graphics2d.fillOval(shape.getCoor().getxCoor(), shape.getCoor().getyCoor(), shape.getWidth(), shape.getHeight());
-			break;
-		case RECTANGLE:
-	        graphics2d.fillRect(shape.getCoor().getxCoor(), shape.getCoor().getyCoor(), shape.getWidth(), shape.getHeight());
-			break;
-		case TRIANGLE:
-			Triangle tri = (Triangle) shape;
-			graphics2d.fillPolygon(tri.getxArray(), tri.getyArray(), 3);
-			break;
-		default:
-			break;
+		if(shape.getShading() == ShapeShadingType.FILLED_IN || shape.getShading() == ShapeShadingType.OUTLINE_AND_FILLED_IN) {
+			switch(shape.getType()) {
+			case ELLIPSE:
+		        graphics2d.fillOval(shape.getCoor().getxCoor(), shape.getCoor().getyCoor(), shape.getWidth(), shape.getHeight());
+				break;
+			case RECTANGLE:
+		        graphics2d.fillRect(shape.getCoor().getxCoor(), shape.getCoor().getyCoor(), shape.getWidth(), shape.getHeight());
+				break;
+			case TRIANGLE:
+				Triangle tri = (Triangle) shape;
+				graphics2d.fillPolygon(tri.getxArray(), tri.getyArray(), 3);
+				break;
+			default:
+				break;
+			}
 		}
 		
+		Color secColor = translateColor(shape.getSecColor());
+		graphics2d.setColor(secColor);
+		graphics2d.setStroke(new BasicStroke(5));
+		
+		if(shape.getShading() == ShapeShadingType.OUTLINE || shape.getShading() == ShapeShadingType.OUTLINE_AND_FILLED_IN) {
+			switch(shape.getType()) {
+			case ELLIPSE:
+		        graphics2d.drawOval(shape.getCoor().getxCoor(), shape.getCoor().getyCoor(), shape.getWidth(), shape.getHeight());
+				break;
+			case RECTANGLE:
+		        graphics2d.drawRect(shape.getCoor().getxCoor(), shape.getCoor().getyCoor(), shape.getWidth(), shape.getHeight());
+				break;
+			case TRIANGLE:
+				Triangle tri = (Triangle) shape;
+				graphics2d.drawPolygon(tri.getxArray(), tri.getyArray(), 3);
+				break;
+			default:
+				break;
+			}
+		}
 
 	}
 	
