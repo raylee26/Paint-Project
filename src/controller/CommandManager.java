@@ -83,11 +83,11 @@ public class CommandManager {
 	private static void drawShape(IApplicationState state, PaintCanvasBase canvas, Shape shape) {
 		
 		// Sets Primary Color
-		Color priColor = translateColor(shape.getPriColor());
 		Graphics2D graphics2d = canvas.getGraphics2D();
-		graphics2d.setColor(priColor);
+		graphics2d.setColor(translateColor(shape.getPriColor()));
 		
-		if(shape.getShading() == ShapeShadingType.FILLED_IN || shape.getShading() == ShapeShadingType.OUTLINE_AND_FILLED_IN) {
+		//Draws filled in shape
+		if(shape.getShading() != ShapeShadingType.OUTLINE) {
 			switch(shape.getType()) {
 			case ELLIPSE:
 		        graphics2d.fillOval(shape.getCoor().getxCoor(), shape.getCoor().getyCoor(), shape.getWidth(), shape.getHeight());
@@ -104,11 +104,13 @@ public class CommandManager {
 			}
 		}
 		
-		Color secColor = translateColor(shape.getSecColor());
-		graphics2d.setColor(secColor);
+		
+		//Sets secondary color
+		graphics2d.setColor(translateColor(shape.getSecColor()));
 		graphics2d.setStroke(new BasicStroke(5));
 		
-		if(shape.getShading() == ShapeShadingType.OUTLINE || shape.getShading() == ShapeShadingType.OUTLINE_AND_FILLED_IN) {
+		//Draws outline
+		if(shape.getShading() != ShapeShadingType.FILLED_IN) {
 			switch(shape.getType()) {
 			case ELLIPSE:
 		        graphics2d.drawOval(shape.getCoor().getxCoor(), shape.getCoor().getyCoor(), shape.getWidth(), shape.getHeight());
