@@ -3,6 +3,9 @@ package controller;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+
+import controller.commands.DrawCommand;
+import controller.commands.History;
 import model.PointCoordinate;
 import model.ShapeColor;
 import model.ShapeShadingType;
@@ -48,13 +51,12 @@ public class CommandManager {
 			break;
 		}
 		
-		// Add Rectangle data to Application State
-		state.getShapeList().add(shape);
-		
-		// Draws shape
-		drawShape(state, canvas, shape);
-        
-        System.out.println("Number of Shapes: " + state.getShapeList().size());
+		//Create Shape Command
+		DrawCommand draw = new DrawCommand(shape, state, canvas);
+		//Run Shape Command
+		draw.run();
+		//Save Shape Command into history
+		History.addCommand(draw);
 	}
 	
 	public static void moveShape(PointCoordinate firstPoint, PointCoordinate secondPoint,
@@ -74,13 +76,17 @@ public class CommandManager {
 			// Draw rectangle on screen
 			drawShape(state, canvas, s);
 		}
+		
+		//TODO add move command in a real move command implementation
+		
+		//TODO add move command to undo and redo history
 	}
 	
 	public static void selectShape() {
 		
 	}
 	
-	private static void drawShape(IApplicationState state, PaintCanvasBase canvas, Shape shape) {
+	public static void drawShape(IApplicationState state, PaintCanvasBase canvas, Shape shape) {
 		
 		// Sets Primary Color
 		Graphics2D graphics2d = canvas.getGraphics2D();
