@@ -86,6 +86,40 @@ public abstract class Shape {
 	public void setShading(ShapeShadingType shading) {
 		this.shading = shading;
 	}
+	
+	/**checks if given shape is inside this shape
+	 * @param shape
+	 * @return boolean
+	 */
+	public boolean contains(Shape shape) {
+		
+		//Grab shape data
+		int a = this.coor.getxCoor();
+		int b = this.coor.getyCoor();
+		int x = shape.getCoor().getxCoor();
+		int y = shape.getCoor().getyCoor();
+		int width = shape.getWidth();
+		int height = shape.getHeight();
+		//Compare first point
+		if(!(a < x && a + this.width > x))
+			return false;
+		if(!(b < y && b + this.height > y))
+			return false;
+		//Compare second point
+		x = x + width;
+		if(!(a < x && a + this.width > x))
+			return false;
+		if(!(b < y && b + this.height > y))
+			return false;
+		//Compare third point
+		y = y + height;
+		if(!(a < x && a + this.width > x))
+			return false;
+		if(!(b < y && b + this.height > y))
+			return false;
+
+		return true;
+	}
 
 	
 }
