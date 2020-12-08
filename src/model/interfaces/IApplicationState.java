@@ -31,5 +31,7 @@ public interface IApplicationState {
     
     ArrayList <Shape> getShapeList();
     
+    ArrayList <Shape> getSelectedShapeList();
+    
     
 }

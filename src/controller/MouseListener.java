@@ -66,7 +66,7 @@ public class MouseListener implements MouseInputListener {
 		switch(state.getActiveStartAndEndPointMode()) {
 		case SELECT:
 			// Selects Shapes
-			
+			CommandManager.selectShape(firstPoint, secondPoint, state);
 			break;
 		case DRAW:
 			// Draws Shapes

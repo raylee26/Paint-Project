@@ -21,9 +21,10 @@ public class CommandManager {
 	public static void makeShape(PointCoordinate firstPoint, PointCoordinate secondPoint,
 			IApplicationState state, PaintCanvasBase canvas) {
 		
-		// Do shape math
+		// Determine width and height
 		int width = Math.abs(secondPoint.getxCoor() - firstPoint.getxCoor());
 		int height = Math.abs(secondPoint.getyCoor() - firstPoint.getyCoor());
+		// Determine location based on smallest x,y coordinate
 		int smallX = Math.min(firstPoint.getxCoor(), secondPoint.getxCoor());
 		int smallY = Math.min(firstPoint.getyCoor(), secondPoint.getyCoor());
 		System.out.println("Width: " + width + " Height: " + height);
@@ -82,7 +83,35 @@ public class CommandManager {
 		//TODO add move command to undo and redo history
 	}
 	
-	public static void selectShape() {
+	public static void selectShape(PointCoordinate firstPoint, PointCoordinate secondPoint, IApplicationState state) {
+		
+		
+		// Determine width and height
+		int width = Math.abs(secondPoint.getxCoor() - firstPoint.getxCoor());
+		int height = Math.abs(secondPoint.getyCoor() - firstPoint.getyCoor());
+		
+		// Determine location based on smallest x,y coordinate
+		int smallX = Math.min(firstPoint.getxCoor(), secondPoint.getxCoor());
+		int smallY = Math.min(firstPoint.getyCoor(), secondPoint.getyCoor());
+		
+		// Create rectangle using width, height, and location data  Does not draw shape
+		Shape shape = new Rectangle(new PointCoordinate(smallX, smallY), width, height, null, null, null);
+		
+		// Empty selected shape arrayList
+		state.getSelectedShapeList().clear();
+		
+		// Check if shapes inside shapeList falls inside of rectangle
+		for(Shape s: state.getShapeList()) {
+			// Adds shape to a selected list if it does fall inside rectangle
+			if(shape.contains(s)) {
+				state.getSelectedShapeList().add(s);
+			}
+		
+		}
+		System.out.println(state.getSelectedShapeList().size() + " shapes selected");
+
+		
+		
 		
 	}
 	

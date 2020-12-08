@@ -24,6 +24,7 @@ public class ApplicationState implements IApplicationState, Serializable {
     private ShapeShadingType activeShapeShadingType;
     private StartAndEndPointMode activeStartAndEndPointMode;
     private ArrayList <Shape> shapeList = new ArrayList <Shape>(); 
+    private ArrayList <Shape> selectedShapeList = new ArrayList <Shape>();
 
     public ApplicationState(IUiModule uiModule) {
         this.uiModule = uiModule;
@@ -93,5 +94,10 @@ public class ApplicationState implements IApplicationState, Serializable {
 	public ArrayList <Shape> getShapeList() {
 		return shapeList;
 	}
+    
+    @Override
+    public ArrayList <Shape> getSelectedShapeList() {
+    	return selectedShapeList;
+    }
 
 }
