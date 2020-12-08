@@ -32,6 +32,9 @@ public class Main {
             e.printStackTrace();
         }
 
+        
+        // Draws test rectangle
+        /*
         // Filled in rectangle
         Graphics2D graphics2d = paintCanvas.getGraphics2D();
         graphics2d.setColor(Color.GREEN);
@@ -50,5 +53,6 @@ public class Main {
 
         // Clears the Canvas
         //paintCanvas.repaint();
+         */
     }
 }

@@ -66,7 +66,7 @@ public class CommandManager {
 		int moveX = secondPoint.getxCoor() - firstPoint.getxCoor();
 		int moveY = secondPoint.getyCoor() - firstPoint.getyCoor();
 		// Apply movement to shape
-		for(Shape s: state.getShapeList()) {
+		for(Shape s: state.getSelectedShapeList()) {
 			s.moveShape(moveX, moveY);
 		}
 		// Draw New canvas
@@ -74,7 +74,7 @@ public class CommandManager {
 		canvas.paintImmediately(0, 0, canvas.getWidth(), canvas.getHeight());
 			//redraw canvas
 		for(Shape s: state.getShapeList()) {
-			// Draw rectangle on screen
+			// Draw shape on screen
 			drawShape(state, canvas, s);
 		}
 		
