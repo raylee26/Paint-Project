@@ -33,7 +33,7 @@ public class DrawCommand implements Command{
 				state.getShapeList().add(shape);
 				
 				// Draws shape
-				CommandManager.drawShape(state, canvas, shape);
+				CommandManager.drawShape(canvas, shape);
 		        
 		        System.out.println("Number of Shapes: " + state.getShapeList().size());
 		

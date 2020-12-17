@@ -3,6 +3,7 @@ package controller;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 
 import controller.commands.DrawCommand;
 import controller.commands.History;
@@ -69,21 +70,15 @@ public class CommandManager {
 		for(Shape s: state.getSelectedShapeList()) {
 			s.moveShape(moveX, moveY);
 		}
-		// Draw New canvas
-			//wipes current canvas
-		canvas.paintImmediately(0, 0, canvas.getWidth(), canvas.getHeight());
-			//redraw canvas
-		for(Shape s: state.getShapeList()) {
-			// Draw shape on screen
-			drawShape(state, canvas, s);
-		}
+		// clears and redraws canvas
+		redrawCanvas(canvas, state);
 		
 		//TODO add move command in a real move command implementation
 		
 		//TODO add move command to undo and redo history
 	}
 	
-	public static void selectShape(PointCoordinate firstPoint, PointCoordinate secondPoint, IApplicationState state) {
+	public static void selectShape(PointCoordinate firstPoint, PointCoordinate secondPoint, IApplicationState state, PaintCanvasBase canvas) {
 		
 		
 		// Determine width and height
@@ -106,16 +101,20 @@ public class CommandManager {
 			if(shape.contains(s)) {
 				state.getSelectedShapeList().add(s);
 			}
-		
 		}
+		// clears and redraws canvas
+		redrawCanvas(canvas, state);
+		
 		System.out.println(state.getSelectedShapeList().size() + " shapes selected");
-
-		
-		
 		
 	}
 	
-	public static void drawShape(IApplicationState state, PaintCanvasBase canvas, Shape shape) {
+	/**drawShape
+	 * draws provided shape with relevant color and outline
+	 * @param canvas- window for application to draw on
+	 * @param shape- provided shape to draw outline on
+	 */
+	public static void drawShape(PaintCanvasBase canvas, Shape shape) {
 		
 		// Sets Primary Color
 		Graphics2D graphics2d = canvas.getGraphics2D();
@@ -139,7 +138,6 @@ public class CommandManager {
 			}
 		}
 		
-		
 		//Sets secondary color
 		graphics2d.setColor(translateColor(shape.getSecColor()));
 		graphics2d.setStroke(new BasicStroke(5));
@@ -162,6 +160,57 @@ public class CommandManager {
 			}
 		}
 
+	}
+	
+	/**drawSelectedShape 
+	 * draws a dashed outline on shape
+	 * @param canvas- window for application to draw on
+	 * @param shape- provided shape to draw outline on
+	 */
+	public static void drawSelectedShape(PaintCanvasBase canvas, Shape shape) {
+		Graphics2D graphics2d = canvas.getGraphics2D();
+		
+		//Set outline make black dashed line
+		Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
+        graphics2d.setStroke(stroke);
+        graphics2d.setColor(Color.BLACK);
+        
+        //Draw dashed outline
+		switch(shape.getType()) {
+			case ELLIPSE:
+		        graphics2d.drawOval(shape.getCoor().getxCoor(), shape.getCoor().getyCoor(), shape.getWidth(), shape.getHeight());
+				break;
+			case RECTANGLE:
+		        graphics2d.drawRect(shape.getCoor().getxCoor(), shape.getCoor().getyCoor(), shape.getWidth(), shape.getHeight());
+				break;
+			case TRIANGLE:
+				Triangle tri = (Triangle) shape;
+				graphics2d.drawPolygon(tri.getxArray(), tri.getyArray(), 3);
+				break;
+			default:
+				break; } 
+		
+	}
+	
+	/**redrawCanvas
+	 * clears canvas and redraws new shapes and selection outlines
+	 * @param canvas- window to draw on
+	 * @param state- current state of application
+	 */
+	public static void redrawCanvas(PaintCanvasBase canvas, IApplicationState state) {
+		// Draw New canvas
+		//wipes current canvas
+		canvas.paintImmediately(0, 0, canvas.getWidth(), canvas.getHeight());
+		// Draws outline for selected shape
+		for(Shape s: state.getSelectedShapeList()) {
+			drawSelectedShape(canvas, s);
+		}
+		//redraw canvas
+		for(Shape s: state.getShapeList()) {
+			// Draw shape on screen
+			drawShape(canvas, s);
+			}
+		
 	}
 	
 	private static Color translateColor(ShapeColor color) {
