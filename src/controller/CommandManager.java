@@ -7,6 +7,7 @@ import java.awt.Stroke;
 
 import controller.commands.DrawCommand;
 import controller.commands.History;
+import controller.commands.MoveCommand;
 import model.PointCoordinate;
 import model.ShapeColor;
 import model.ShapeShadingType;
@@ -66,16 +67,13 @@ public class CommandManager {
 		// Determine Direction and Distance of movement
 		int moveX = secondPoint.getxCoor() - firstPoint.getxCoor();
 		int moveY = secondPoint.getyCoor() - firstPoint.getyCoor();
-		// Apply movement to shape
-		for(Shape s: state.getSelectedShapeList()) {
-			s.moveShape(moveX, moveY);
-		}
-		// clears and redraws canvas
-		redrawCanvas(canvas, state);
-		
-		//TODO add move command in a real move command implementation
-		
-		//TODO add move command to undo and redo history
+
+		//Create Move Command
+		MoveCommand move = new MoveCommand(state, canvas, moveX, moveY);
+		//Run Move Command
+		move.run();
+		//Save Move Command into history
+		History.addCommand(move);
 	}
 	
 	public static void selectShape(PointCoordinate firstPoint, PointCoordinate secondPoint, IApplicationState state, PaintCanvasBase canvas) {

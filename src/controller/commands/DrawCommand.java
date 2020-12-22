@@ -17,25 +17,30 @@ public class DrawCommand implements Command{
 		this.canvas = canvas;
 		
 	}
+	
 	@Override
 	public void undo() {
+		//Remove last shape added to shape list
+		state.getShapeList().remove(shape);
 		
+		//Redraw canvas
+		CommandManager.redrawCanvas(canvas, state);
 	}
 
 	@Override
 	public void redo() {
-		
+		run();
 	}
 
 	@Override
 	public void run() {
 		// Add Rectangle data to Application State
-				state.getShapeList().add(shape);
+		state.getShapeList().add(shape);
 				
-				// Draws shape
-				CommandManager.drawShape(canvas, shape);
+		// Draws shape
+		CommandManager.drawShape(canvas, shape);
 		        
-		        System.out.println("Number of Shapes: " + state.getShapeList().size());
+		System.out.println("Number of Shapes: " + state.getShapeList().size());
 		
 	}
 
