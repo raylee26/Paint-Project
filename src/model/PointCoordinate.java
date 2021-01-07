@@ -33,5 +33,9 @@ public class PointCoordinate {
 		return coor;
 		
 	}
+	
+	public PointCoordinate copy() {
+		return new PointCoordinate(this.xCoor, this.yCoor); 
+	}
 }
 

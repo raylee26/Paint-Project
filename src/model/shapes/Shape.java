@@ -23,7 +23,7 @@ public abstract class Shape {
 	}
 	
 	public Shape(Shape oldShape) {
-		this.setCoor(oldShape.getCoor());
+		this.setCoor(oldShape.getCoor().copy());
 		this.setWidth(oldShape.getWidth());
 		this.setHeight(oldShape.getHeight());
 		this.setPriColor(oldShape.getPriColor());

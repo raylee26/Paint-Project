@@ -25,6 +25,7 @@ public class ApplicationState implements IApplicationState, Serializable {
     private StartAndEndPointMode activeStartAndEndPointMode;
     private ArrayList <Shape> shapeList = new ArrayList <Shape>(); 
     private ArrayList <Shape> selectedShapeList = new ArrayList <Shape>();
+    private ArrayList <Shape> copyShapeList = new ArrayList <Shape>();
 
     public ApplicationState(IUiModule uiModule) {
         this.uiModule = uiModule;
@@ -98,6 +99,11 @@ public class ApplicationState implements IApplicationState, Serializable {
     @Override
     public ArrayList <Shape> getSelectedShapeList() {
     	return selectedShapeList;
+    }
+    
+    @Override
+    public ArrayList <Shape> getCopyShapeList() {
+    	return copyShapeList;
     }
 
 }

@@ -211,6 +211,32 @@ public class CommandManager {
 		
 	}
 	
+	/**Copy shapes from selectedShapeList to copyShapeList
+	 * @param state
+	 */
+	public static void copyShape(IApplicationState state) {
+		// Clear old shapes from copy list
+		state.getCopyShapeList().clear();
+		// copy shape from selected shape list to copy shape list
+		for(Shape s: state.getSelectedShapeList()) {
+			state.getCopyShapeList().add(s);
+		}	
+	}
+	
+	public static void paste(PaintCanvasBase canvas, IApplicationState state) {
+		//add shapes from copyShapeList to shapeList
+		for(Shape s: state.getCopyShapeList()) {
+			//create a copy of the shape and then shift it over
+			Shape c = s.copy();
+			c.moveShape(50, 0);
+			state.getShapeList().add(c);
+		}
+		//redraw canvas
+		CommandManager.redrawCanvas(canvas, state);
+	}
+	
+	
+	
 	private static Color translateColor(ShapeColor color) {
 		switch(color) {
 		case BLACK:
