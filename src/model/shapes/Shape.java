@@ -21,6 +21,15 @@ public abstract class Shape {
 		this.setSecColor(secColor);
 		this.setShading(shading);
 	}
+	
+	public Shape(Shape oldShape) {
+		this.setCoor(oldShape.getCoor());
+		this.setWidth(oldShape.getWidth());
+		this.setHeight(oldShape.getHeight());
+		this.setPriColor(oldShape.getPriColor());
+		this.setSecColor(oldShape.getSecColor());
+		this.setShading(oldShape.getShading());
+	}
 
 	public PointCoordinate getCoor() {
 		return coor;
@@ -121,6 +130,10 @@ public abstract class Shape {
 		return true;
 	}
 
+	/**takes old shape and returns a new copy of the old shape
+	 * @return
+	 */
+	public abstract Shape copy();
 	
 }
 

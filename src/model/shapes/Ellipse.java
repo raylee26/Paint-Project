@@ -11,9 +11,19 @@ public class Ellipse extends Shape {
 		super(coor, width, height, priColor, secColor, shading);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Ellipse(Ellipse oldEllipse) {
+		super(oldEllipse);
+	}
 
 	@Override
 	public ShapeType getType() {
 		return ShapeType.ELLIPSE;
+	}
+
+	@Override
+	public Shape copy() {
+		Ellipse e = new Ellipse(this);
+		return e;
 	}
 }

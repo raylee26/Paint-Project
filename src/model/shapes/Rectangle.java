@@ -20,9 +20,18 @@ public class Rectangle extends Shape {
 		
 	}
 	
+	public Rectangle(Rectangle oldRectangle) {
+		super(oldRectangle);
+	}
+	
 	@Override
 	public ShapeType getType() {
 		return ShapeType.RECTANGLE;
+	}
+
+	@Override
+	public Shape copy() {
+		return new Rectangle(this);
 	}
 	
 }
